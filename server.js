@@ -16,9 +16,9 @@ const DATABASE_URL= process.env.DATABASE_URL;
 
 //app setup
 const server = express();
-// const client = new pg.Client(DATABASE_URL);
+const client = new pg.Client(DATABASE_URL);
 
-const client = new pg.Client({ connectionString: process.env.DATABASE_URL, ssl: { rejectUnauthorized: false } });
+// const client = new pg.Client({ connectionString: process.env.DATABASE_URL, ssl: { rejectUnauthorized: false } });
 
 
 //middleare 
@@ -31,8 +31,8 @@ server.set('view engine', 'ejs');
 
 
 // //routs
-// server.get('/',homeHandler);
-// server.post('/products',getProd);
+server.get('/',homeHandler);
+server.post('/products',getProd);
 server.get('/products/maybelline',getMaybe);
 server.post('/product/my-products',addProd);
 server.get('/product/my-products',displayProd);
@@ -44,20 +44,21 @@ server.put('/product/:product_id',prodUpdate);
 
 
 
-// function homeHandler (req,res){
+function homeHandler (req,res){
+  res.render('index');
+}
 
-//   res.render('index');
-// }
 
-// function getProd (req,res){
-//   const {brand,price_up,price_down} = req.body;
-// const url = `http://makeup-api.herokuapp.com/api/v1/products.json?brand=${brand}&price_greater_than=${price_down}&price_less_than=${price_up}`;
-// superagent.get(url).then(data=>{
-// res.send(data.body);
-// // res.render('Maybelline-Products', {prod:data.body});
 
-//   }).catch(error=> console.log(error));
-// }
+function getProd (req,res){
+const {brand,price_up,price_down} = req.body;
+const url = `http://makeup-api.herokuapp.com/api/v1/products.json?brand=${brand}&price_greater_than=${price_up}&price_less_than=${price_down}`;
+
+superagent.get(url).then(data=>{
+res.render('Product-By-Price', {prod:data.body});
+  }).catch(error=> console.log(error));
+}
+
 
 function getMaybe (req,res){
 const url = `http://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline`;

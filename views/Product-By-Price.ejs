@@ -4,9 +4,23 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="base.css">
   <title>Document</title>
 </head>
 <body>
   
+  <main>
+    <section style="display: grid; grid-template-columns: 35% 35% 35%;">
+      <% prod.forEach(item => { %>
+  <div style="background-color: pink; margin: 100px; padding: 30px;">
+    <img src="<%= item.image_link %>">
+<p><%=item.name %></p>
+<p><%=item.price %></p>
+<p><%=item.description %></p>
+
+</div>
+<%}); %>
+
+</section>
 </body>
 </html>
