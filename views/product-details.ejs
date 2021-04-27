@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <main>
+    <section style="display: flex; flex-wrap:wrap">
+<% prod.forEach(item => { %>
+  <div style="background-color: pink; margin: 5px; padding: 30px; width:75%; word-wrap: break-word;">
+    <img src="<%= item.image %>">
+<p><%=item.name %></p>
+<p><%=item.price %></p>
+<p><%=item.description %></p>
+
+<form action="/product/<%=item.id %>?_method=DELETE" method="post">
+<input type="submit" value="delete">
+</form>
+
+<form action="/product/<%=item.id %>?_method=PUT" method="post">
+  <input type="text" name="name" value="<%=item.name %>">
+<input type="text" name="price" value="<%=item.price %>">
+<input type="text" name="image" value="<%=item.image %>">
+<input type="text" name="description" value="<%=item.description %>">
+  <input type="submit" value="update">
+  </form>
+
+</form>
+</div>
+<%}); %>
+</body>
+</html>
